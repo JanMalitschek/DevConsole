@@ -1,0 +1,16 @@
+{
+  "name": "com.jamathan.devconsole",
+  "version": "1.0.0",
+  "displayName": "Dev Console",
+  "description": "A simple in game developer console.",
+  "keywords": [
+    "console",
+    "debugging"
+  ],
+  "author": {
+    "name": "Jamathan",
+    "url": "https://twitter.com/malitschek"
+  },
+  "type": "tool",
+  "hideInEditor": false
+}
