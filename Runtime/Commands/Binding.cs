@@ -8,7 +8,7 @@ namespace DevConsole{
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public class BindingAttribute : Attribute
     {
-        public string Command {get; private set;}
+        public string Command {get; set;}
         public BindingAttribute(string command){
             Command = command;
         }

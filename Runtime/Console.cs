@@ -43,6 +43,7 @@ namespace DevConsole{
                         foreach(MethodInfo mi in t.GetMethods()){
                             BindingAttribute attribute = mi.GetCustomAttribute<BindingAttribute>();
                             if(attribute != null){
+                                attribute.Command = $"{t.Name}.{attribute.Command}";
                                 bool parametersPrimitive = true;
                                 foreach(ParameterInfo pi in mi.GetParameters()){
                                     if(!pi.ParameterType.IsPrimitive && pi.ParameterType != typeof(string)){
