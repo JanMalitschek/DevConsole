@@ -20,27 +20,31 @@ namespace DevConsole{
         }
 
         private void OnGUI() {
-            Event e = Event.current;
+            Event e = Event.current;  
             if(e.isKey){
                 if(!toggled && (e.keyCode == KeyCode.Backslash || e.keyCode == KeyCode.Tilde)){
                     toggled = true;
                     uiVisible = !uiVisible;
+                    if(uiVisible)
+                        GUI.FocusControl("CommandLine");
                 }
                 if(toggled && e.keyCode == KeyCode.None)
                     toggled = false;
             }
-                
             if(uiVisible){
                 GUI.skin = skin;
                 scrollPosition = GUI.BeginScrollView(new Rect(0, 0, Screen.width, Screen.height / 3.0f), scrollPosition, new Rect(0, 0, Screen.width - 20, 800));
                 GUI.TextArea(new Rect(0, 0, Screen.width, 800), console.History);
                 GUI.EndScrollView();
+                GUI.SetNextControlName("CommandLine");
                 currentCommand = GUI.TextArea(new Rect(0, Screen.height / 3.0f, Screen.width, 20.0f), currentCommand);
                 if(currentCommand.Length >= 2 && currentCommand.Last() == '\n'){
                     currentCommand = currentCommand.Remove(currentCommand.Length - 1);
                     console.SubmitCommand(currentCommand, this);
                     currentCommand = string.Empty;
                 }
+                if(toggled)
+                    GUI.FocusControl("CommandLine");
             }
         }   
 
