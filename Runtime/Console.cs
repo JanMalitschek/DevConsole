@@ -11,8 +11,8 @@ namespace DevConsole{
         private List<ICommand> commands = new List<ICommand>();
         private List<Binding> bindings = new List<Binding>();
         private List<ValueBinding> valueBindings = new List<ValueBinding>();
-        private Queue<string> history = new Queue<string>();
-        private Queue<string> commandHistory = new Queue<string>();
+        private static Queue<string> history = new Queue<string>();
+        private static Queue<string> commandHistory = new Queue<string>();
         private int commandHistoryPointer = 0;
         private string formattedHistory;
         public string History{
