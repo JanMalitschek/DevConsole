@@ -16,6 +16,9 @@ namespace DevConsole.Commands{
         public static bool DoesArgExist(int argIdx, string[] args){
             return args.Length > argIdx;
         }
+        public static bool IsArgOption(int argIdx, string[] args){
+            return args.Length > argIdx && args[argIdx][0] == '-';
+        }
     }
 
     public interface ICommand

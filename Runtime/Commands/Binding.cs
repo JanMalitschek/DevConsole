@@ -13,10 +13,26 @@ namespace DevConsole{
             Command = command;
         }
     }
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+    public class ValueBindingAttribute : Attribute
+    {
+        public string Key {get; set;}
+        public ValueBindingAttribute(string key){
+            Key = key;
+        }
+    }
 
     public class Binding{
         public BindingAttribute attribute;
         public Type type;
         public MethodInfo method;
+    }
+
+    public class ValueBinding{
+        public ValueBindingAttribute attribute;
+        public Type type;
+        public bool isProperty;
+        public FieldInfo field;
+        public PropertyInfo property;
     }
 }

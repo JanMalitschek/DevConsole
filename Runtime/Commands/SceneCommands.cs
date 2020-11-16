@@ -13,8 +13,8 @@ namespace DevConsole.Commands.Scene{
         public string Syntax{
             get{
                 return "Scene.list <option>\n"
-                        + "\t-b\t All scenes in the build settings.\n"
-                        + "\t-l default\t All scenes currently loaded.";
+                        + "\t-b\tAll scenes in the build settings.\n"
+                        + "\t-l default\tAll scenes currently loaded.";
             }
         }
         public string Description{

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Globalization;
 
 namespace DevConsole.Commands.Time{
     public class DeltaTime : ICommand{
@@ -181,6 +182,29 @@ namespace DevConsole.Commands.Time{
         }
         public void Execute(Console console, params string[] args){
             console.Log(UnityEngine.Time.timeScale.ToString());
+        }
+    } 
+    public class SetTimeScale : ICommand{
+        public string Key{
+            get{
+                return "Time.SetTimeScale";
+            }
+        }
+        public string Syntax{
+            get{
+                return "Time.SetTimeScale <timeScale>";
+            }
+        }
+        public string Description{
+            get{
+                return "Sets the current timeScale.";
+            }
+        }
+        public void Execute(Console console, params string[] args){
+            if(args.Length == 0)
+                UnityEngine.Time.timeScale = 1.0f;
+            else
+                UnityEngine.Time.timeScale = System.Convert.ToSingle(args[0], CultureInfo.InvariantCulture);
         }
     } 
     public class TimeSinceLevelLoad : ICommand{
