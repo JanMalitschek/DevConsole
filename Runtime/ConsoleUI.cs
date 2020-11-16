@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace DevConsole{
     public class ConsoleUI : MonoBehaviour
@@ -41,9 +42,10 @@ namespace DevConsole{
                     else if(e.keyCode == KeyCode.DownArrow)
                         currentCommand = console.GetNextCommand();
                     else if(e.keyCode == KeyCode.Return && currentCommand.Length >= 1){
-                        currentCommand = currentCommand.Replace('\n', '\b');
+                        currentCommand = currentCommand.Trim('\n', '\b', '\t');
                         console.SubmitCommand(currentCommand, this);
                         currentCommand = string.Empty;
+                        return;
                     }
                 }
 

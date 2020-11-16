@@ -469,11 +469,12 @@ namespace DevConsole{
         public string GetNextCommand(){
             if(commandHistory.Count == 0)
                 return string.Empty;
-            string result = commandHistory.ToArray()[commandHistoryPointer++];
+            commandHistoryPointer++;
             if(commandHistoryPointer >= commandHistory.Count){
                 commandHistoryPointer = commandHistory.Count - 1; 
                 return string.Empty;
             }
+            string result = commandHistory.ToArray()[commandHistoryPointer];
             return result;            
         }
     }
