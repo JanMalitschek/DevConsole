@@ -183,6 +183,7 @@ namespace DevConsole{
                                 case "desc": Syntax("desc <command>"); break;
                                 case "instances": Syntax("instances <binding>"); break;
                             }
+                            Error($"Unknown command or binding '{args[0]}'");
                         }
                         else
                             Syntax("syntax <command/binding>");
@@ -203,6 +204,7 @@ namespace DevConsole{
                                 case "desc": Log("Shows the description for the specified command."); break;
                                 case "instances": Log("Lists all available instances for a non-static binding."); break;
                             }
+                            Error($"No description available for '{args[0]}'");
                         }
                         else
                             Syntax("desc <command>");

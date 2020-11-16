@@ -40,15 +40,15 @@ namespace DevConsole{
                         currentCommand = console.GetPreviousCommand();
                     else if(e.keyCode == KeyCode.DownArrow)
                         currentCommand = console.GetNextCommand();
+                    else if(e.keyCode == KeyCode.Return && currentCommand.Length >= 1){
+                        currentCommand = currentCommand.Replace('\n', '\b');
+                        console.SubmitCommand(currentCommand, this);
+                        currentCommand = string.Empty;
+                    }
                 }
 
                 GUI.SetNextControlName("CommandLine");
                 currentCommand = GUI.TextArea(new Rect(0, Screen.height / 3.0f, Screen.width, 20.0f), currentCommand);
-                if(currentCommand.Length >= 2 && currentCommand.Last() == '\n'){
-                    currentCommand = currentCommand.Remove(currentCommand.Length - 1);
-                    console.SubmitCommand(currentCommand, this);
-                    currentCommand = string.Empty;
-                }
                 if(toggled)
                     GUI.FocusControl("CommandLine");
             }
