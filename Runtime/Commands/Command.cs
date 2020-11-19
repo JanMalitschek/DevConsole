@@ -19,6 +19,14 @@ namespace DevConsole.Commands{
         public static bool IsArgOption(int argIdx, string[] args){
             return args.Length > argIdx && args[argIdx][0] == '-';
         }
+        public static string Clean(string command){
+            command = command.Replace(System.Environment.NewLine, string.Empty);
+            command = command.Replace("\n", string.Empty);
+            command = command.Replace("\r", string.Empty);
+            command = command.Replace("\t", string.Empty);
+            command = command.Replace("\b", string.Empty);
+            return command;
+        }
     }
 
     public interface ICommand

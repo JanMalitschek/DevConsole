@@ -9,6 +9,16 @@ namespace DevConsole{
     public class Console
     {
         private List<ICommand> commands = new List<ICommand>();
+        public static List<string> builtInCommands = new List<string>{
+            "help",
+            "clear",
+            "history",
+            "commands",
+            "bindings",
+            "syntax",
+            "desc",
+            "instances"
+        };
         private List<Binding> bindings = new List<Binding>();
         private List<ValueBinding> valueBindings = new List<ValueBinding>();
         private static Queue<string> history = new Queue<string>();
@@ -458,6 +468,7 @@ namespace DevConsole{
             Syntax("\t" + b.attribute.Key + " <new value> <option> <instance 0> <instance 1> ... <instance n>\n\t-i\tInclude only the following instances.\n\t-e\tExclude the following instances.\n");
         }
 
+        #region History
         public string GetPreviousCommand(){
             if(commandHistory.Count == 0)
                 return string.Empty;
@@ -477,5 +488,37 @@ namespace DevConsole{
             string result = commandHistory.ToArray()[commandHistoryPointer];
             return result;            
         }
+        #endregion
+
+        #region AutoComplete
+        public string[] CompleteCommand(string incompleteCommand){
+            List<string> possibleCommands = new List<string>();
+            foreach(string c in builtInCommands)
+                if(c.StartsWith(incompleteCommand, true, System.Globalization.CultureInfo.InvariantCulture) && c != incompleteCommand)
+                    possibleCommands.Add(c);
+            foreach(ICommand c in commands)
+                if(c.Key.StartsWith(incompleteCommand, true, System.Globalization.CultureInfo.InvariantCulture) && c.Key != incompleteCommand)
+                    possibleCommands.Add(c.Key);
+            return possibleCommands.ToArray();
+        }
+        public string[] CompleteBinding(string incompleteBinding){
+            List<string> possibleBindings = new List<string>();
+            foreach(Binding b in bindings)
+                if(b.attribute.Command.StartsWith(incompleteBinding, true, System.Globalization.CultureInfo.InvariantCulture) && b.attribute.Command != incompleteBinding)
+                    possibleBindings.Add(b.attribute.Command);
+            foreach(ValueBinding b in valueBindings)
+                if(b.attribute.Key.StartsWith(incompleteBinding, true, System.Globalization.CultureInfo.InvariantCulture) && b.attribute.Key != incompleteBinding)
+                    possibleBindings.Add(b.attribute.Key);
+            return possibleBindings.ToArray();
+        }
+        public string[] CompleteInput(string incompleteInput){
+            string[] possibleCommands = CompleteCommand(incompleteInput);
+            string[] possibleBidings = CompleteBinding(incompleteInput);
+            string[] result = new string[possibleCommands.Length + possibleBidings.Length];
+            possibleCommands.CopyTo(result, 0);
+            possibleBidings.CopyTo(result, possibleCommands.Length);
+            return result;
+        }
+        #endregion
     }
 }
